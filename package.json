@@ -1,3 +1,4 @@
+
 {
   "name": "template-string-converter",
   "displayName": "Template String Converter",
@@ -9,7 +10,13 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "onLanguage:svelte"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
@@ -17,7 +24,61 @@
         "command": "template-string-converter.helloWorld",
         "title": "Hello World"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Template String Converter",
+      "properties": {
+        "template-string-converter.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable the extension."
+        },
+        "template-string-converter.validLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "javascript",
+            "typescript",
+            "javascriptreact",
+            "typescriptreact",
+            "svelte"
+          ],
+          "description": "Languages where the extension should be active."
+        },
+        "template-string-converter.quoteType": {
+          "type": "string",
+          "enum": [
+            "single",
+            "double",
+            "both"
+          ],
+          "default": "both",
+          "description": "Choose which quotation marks should be converted."
+        },
+        "template-string-converter.convertOutermostQuotes": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert the outermost quotes in nested strings."
+        },
+        "template-string-converter.autoRemoveTemplateString": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically revert template literals when interpolation is removed."
+        },
+        "template-string-converter.convertWithinTemplateString": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow conversion inside existing template literals."
+        },
+        "template-string-converter.addBracketsToProps": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically add JSX expression brackets around template literals in properties."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
